@@ -14,13 +14,13 @@ local theme = {}
 theme.font          = "xos4 Terminus 8"
 
 theme.bg_normal     = "#000000"
-theme.bg_focus      = "#000000"
+theme.bg_focus      = "#012a34"
 theme.bg_urgent     = "#ff0000"
 theme.bg_minimize   = "#000000"
 theme.bg_systray    = theme.bg_normal
 
-theme.fg_normal     = "#ffffff"
-theme.fg_focus      = "#ffffff"
+theme.fg_normal     = "#00d6d3"
+theme.fg_focus      = "#00d6d3"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
@@ -61,7 +61,7 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
---theme.menu_submenu_icon = "/home/gentoo/Downloads/gblend.png"
+--theme.menu_submenu_icon = "~/Downloads/gblend.png"
 theme.menu_height = dpi(15)
 theme.menu_width  = dpi(100)
 
@@ -119,7 +119,7 @@ theme.layout_cornerse = themes_path.."default/layouts/cornersew.png"
 
 -- Generate Awesome icon:
 --theme.awesome_icon = theme_assets.awesome_icon(theme.menu_height, theme.bg_focus, theme.fg_focus
-theme.awesome_icon = "/home/gentoo/Downloads/gblend.png"
+theme.awesome_icon = "~/Downloads/gblend.png"
 
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.

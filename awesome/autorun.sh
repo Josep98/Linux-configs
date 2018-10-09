@@ -9,4 +9,4 @@ function run {
 
 run compton -b
 run nitrogen --restore &
-run redshift &> /dev/null &
+run redshift -b 0.6 &> /dev/null &
