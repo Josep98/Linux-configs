@@ -1,4 +1,6 @@
 -- Standard awesome library
+local volume_control = require("volume-control")
+volumecfg = volume_control({})
 local gears = require("gears")
 local awful = require("awful")
 require("awful.autofocus")
@@ -45,7 +47,7 @@ beautiful.init("~/.config/awesome/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "terminator"
-editor = os.getenv("EDITOR") or "nano"
+editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -x " .. editor
 
 -- Default modkey.
@@ -189,7 +191,7 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "cj", "cc", "web", "code", "misc->", "1", "2", "3", "4" }, s, awful.layout.layouts[1])
+    awful.tag({ "cj", "gfx", "www", "code", "music", "misc->", "1", "2", "3", "4" }, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -224,6 +226,7 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
             mykeyboardlayout,
             wibox.widget.systray(),
+            volumecfg.widget,
             mytextclock,
             s.mylayoutbox,
         },
@@ -241,6 +244,9 @@ root.buttons(gears.table.join(
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
+	awful.key({}, "XF86AudioRaiseVolume", function() volumecfg:up() end),
+    awful.key({}, "XF86AudioLowerVolume", function() volumecfg:down() end),
+    awful.key({}, "XF86AudioMute",        function() volumecfg:toggle() end),
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
@@ -289,7 +295,7 @@ globalkeys = gears.table.join(
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
 	--dmenu_run -fn "Terminus-7"
-	 awful.key({ modkey,           }, "d", function () awful.spawn("dmenu_run -fn \"Terminus-7\"") end,
+	 awful.key({ modkey,           }, "d", function () awful.spawn("dmenu_run -fn \"xos4 Terminus-8\" -nb '#000000' -nf '#00d6d3' -sf '#00d6d3' -sb '#012a34'") end, --be aware, every distro/program has its own unique definition of what the names of fonts are
               {description = "dmenu", group = "launcher"}),
 
     awful.key({ modkey, "Control" }, "r", awesome.restart,
@@ -468,10 +474,17 @@ awful.rules.rules = {
 	{ rule = { 
 		class = "Terminator" },
     		properties = {
-			 opacity = 0.9
+			-- opacity = 0.9
+			width = 800, height = 500
 		 } 
 	},
 	
+	{ rule = { 
+		class = "Firefox" }, --Note: case sensitive
+    		properties = {
+			 screen = 1, tag = "www" 
+		 } 
+	},
     -- Floating clients.
     { rule_any = {
         instance = {
